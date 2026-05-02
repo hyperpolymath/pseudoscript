@@ -1,0 +1,98 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024-2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
+= PseudoScript
+:toc: preamble
+:icons: font
+
+Pseudocode-syntax AffineScript. The pseudocode you wrote in your algorithms textbook actually compiles and runs.
+
+== What it is
+
+PseudoScript is link:https://github.com/hyperpolymath/affinescript[AffineScript] with its `pseudo` face pre-selected. CS students who learned algorithms from CLRS, Sedgewick, or any first-year algorithms course already know the syntax: `function name(...) do … end`, `set x to expr`, `output expr`, `if condition then … else … end if`, `for x in list do … end for`, `is` / `is not`, `and` / `or` / `not`, `yes` / `no`.
+
+This is a *first-language* opportunity. Every CS textbook on Earth uses pseudocode for examples. There's no other language where the pseudocode you wrote in week 1 actually executes — Scratch is graphical-only, Python is closer but still has its own keywords. PseudoScript closes that gap.
+
+This repo is a **brand surface only**. The compiler lives in link:https://github.com/hyperpolymath/affinescript[affinescript]. This repo carries:
+
+* Examples that match common textbook pseudocode (CLRS, Sedgewick, etc.)
+* Documentation aimed at CS students and educators
+* A `pseudo` shim CLI that aliases `affinescript --face pseudo`
+* Tutorial materials suitable for an intro algorithms course
+
+== Hello
+
+`examples/hello.affine`:
+
+[source,affine]
+----
+-- face: pseudoscript
+
+effect IO {
+  fn println(s: String) -> ()
+}
+
+function main() -{IO}-> () do
+    println("Hello, PseudoScript!")
+end
+----
+
+The face transformer accepts the pseudocode keywords your textbook taught you. Errors come back in beginner-friendly vocabulary ("`x` has not been defined. Declare it with `set x to ...` or as a function parameter.") rather than compiler-jargon.
+
+== Install
+
+[source,bash]
+----
+opam install affinescript
+git clone https://github.com/hyperpolymath/pseudoscript
+cd pseudoscript
+----
+
+== Use
+
+[source,bash]
+----
+# Direct, via affinescript:
+affinescript eval --face pseudo examples/hello.affine
+affinescript compile --face pseudo examples/hello.affine -o hello.wasm
+
+# Or via the pseudo shim:
+./bin/pseudo eval examples/hello.affine
+
+# Or via the justfile:
+just run examples/hello.affine
+just preview examples/hello.affine    # show the canonical lowering
+----
+
+Source files use the canonical `.affine` extension. The face is selected by the `-- face: pseudoscript` pragma on the first comment line, or by the `--face pseudo` flag.
+
+== Different faces, same cube
+
+PseudoScript is one of six established faces over the AffineScript core:
+
+* AffineScript — the canonical face
+* link:https://github.com/hyperpolymath/rattlescript[RattleScript] — Python-style
+* link:https://github.com/hyperpolymath/jaffascript[JaffaScript] — JavaScript / TypeScript-style
+* link:https://github.com/hyperpolymath/lucidscript[LucidScript] — PureScript / Haskell-style
+* link:https://github.com/hyperpolymath/cafescripto[CafeScripto] — CoffeeScript-style
+* **PseudoScript** — pseudocode-style (this repo)
+
+== Why PseudoScript
+
+The catchment is smaller than RattleScript or JaffaScript by raw headcount, but unusually defensible. CS pedagogy is pseudocode-first by tradition; the gap between "what the textbook says" and "what compiles" has been there for fifty years. Closing it gives students a way to:
+
+1. Write the algorithm exactly as the textbook describes it.
+2. Get type errors in pedagogy-friendly language ("the if branch produces X but the else branch produces Y — both branches must produce the same type") instead of compiler jargon.
+3. Compile to typed-wasm and actually see the algorithm run.
+4. Migrate to a more conventional face (Rattle, Jaffa) once they're comfortable with programming-as-distinct-from-pseudocode.
+
+== Limitations
+
+The pseudocode face does **not** yet auto-insert statement separators between non-tail statements. Multi-statement function bodies need explicit separators (`;`) or single-statement bodies. Some token substitutions can also bleed into comment text. These are tracked in link:https://github.com/hyperpolymath/affinescript/blob/main/examples/faces/README.adoc[the affinescript faces README] and are scheduled for sweep on 2026-05-16.
+
+== Status
+
+Alpha. The face transformer is implemented in `affinescript/lib/pseudocode_face.ml`.
+
+== License
+
+AGPL-3.0-or-later. See `LICENSE`.

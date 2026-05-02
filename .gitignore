@@ -1,0 +1,19 @@
+# Build artefacts
+out.wasm
+*.wasm
+build/
+dist/
+_build/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/
+*.swp
+
+# Local secrets
+.env
+.env.local

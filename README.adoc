@@ -1,6 +1,9 @@
-// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 // SPDX-FileCopyrightText: 2024-2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
 = PseudoScript
+image:https://img.shields.io/badge/OpenSSF-Best_Practices-green?logo=openssourcesecurity[OpenSSF Best Practices,link="https://www.bestpractices.dev/en/projects/new?repo_url=https://github.com/hyperpolymath/pseudoscript"]
+
 :toc: preamble
 :icons: font
 
@@ -67,7 +70,7 @@ Source files use the canonical `.affine` extension. The face is selected by the 
 
 == Different faces, same cube
 
-PseudoScript is one of six established faces over the AffineScript core:
+PseudoScript is one of nine established faces over the AffineScript core:
 
 * AffineScript — the canonical face
 * link:https://github.com/hyperpolymath/rattlescript[RattleScript] — Python-style
@@ -75,6 +78,9 @@ PseudoScript is one of six established faces over the AffineScript core:
 * link:https://github.com/hyperpolymath/lucidscript[LucidScript] — PureScript / Haskell-style
 * link:https://github.com/hyperpolymath/cafescripto[CafeScripto] — CoffeeScript-style
 * **PseudoScript** — pseudocode-style (this repo)
+* link:https://github.com/hyperpolymath/typescriptface[TypeScriptFace] — TypeScript-style
+* link:https://github.com/hyperpolymath/rescriptface[ReScriptFace] — ReScript-style
+* link:https://github.com/hyperpolymath/actionscriptface[ActionScriptFace] — ActionScript-style
 
 == Why PseudoScript
 
@@ -95,4 +101,6 @@ Alpha. The face transformer is implemented in `affinescript/lib/pseudocode_face.
 
 == License
 
-AGPL-3.0-or-later. See `LICENSE`.
+This project is licensed under the Mozilla Public License, v. 2.0. See the `LICENSE` file for details.
+
+SPDX-License-Identifier: MPL-2.0

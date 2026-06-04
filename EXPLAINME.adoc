@@ -1,0 +1,109 @@
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
+// SPDX-FileCopyrightText: 2024-2026 Jonathan D.A. Jewell (hyperpolymath)
+= PseudoScript - Face Repository
+:toc:
+:icons: font
+
+PseudoScript is a **face** (syntax surface) for link:https://github.com/hyperpolymath/affinescript[AffineScript].
+This document explains the repository structure and key concepts for pseudocode authors.
+
+== What is a "Face"?
+
+A face is a sugared surface syntax that lets developers approach AffineScript semantics
+through a familiar programming style. PseudoScript provides pseudocode-style syntax,
+but all faces compile to the same canonical AST and produce identical typed-wasm output.
+
+Key principle: *Different faces, same cube.*
+
+== Repository Structure
+
+[cols="1,2"]
+|===
+|Path |Purpose
+
+|`bin/pseudo` |CLI shim that forwards to `affinescript --face pseudo`
+|`examples/` |PseudoScript examples showing face-specific syntax
+|`docs/` |PseudoScript-focused documentation
+|`tests/` |Face transformer regression tests
+|`justfile` |Common tasks: `check`, `run`, `build`, `preview`, `lint`
+|`.github/` |GitHub workflows and issue templates
+|===
+
+== Key Concepts for Pseudocode Authors
+
+[cols="1,2"]
+|===
+|PseudoScript |What it means in AffineScript
+
+|`FUNCTION f(): RETURNS T` |Function declaration (lowers to `fn f(): T`)
+|`LET x = ...` |Binding declaration (lowers to `let`)
+|`SET x TO y` |Assignment (lowers to `x = y`)
+|`IF cond:` / `ELSE:` |Conditional (lowers to `if cond { } else { }`)
+|`FOR x IN collection:` |Iteration (lowers to `for x in collection { }`)
+|`MATCH e:` |Pattern matching (lowers to `match e { }`)
+|`OUTPUT x` |Print/return value (context-dependent)
+|`TRUE` / `FALSE` |Boolean literals (lowers to `true` / `false`)
+|`NULL` |Unit value `()` - absence of a value
+|`AND` / `OR` / `NOT` |Boolean operators (lowers to `&&` / `||` / `!`)
+|`# face: pseudocode` |Pragma declaring this file uses PseudoScript syntax
+|`PASS` |Unit expression `()` - no-op
+|===
+
+== Terminology Differences
+
+[cols="1,2"]
+|===
+|Pseudocode term |AffineScript equivalent / Explanation
+
+|`FUNCTION` |`fn` - AffineScript uses `fn` for function declarations
+|`RETURNS` |`->` - Return type annotation uses arrow syntax
+|`PROCEDURE` |Not applicable - AffineScript has only functions, no procedures
+|`VAR` |`let mut` - Mutable variable (explicit mutability required)
+|`CONST` |`let` - Immutable binding
+|`CLASS` |`type` - AffineScript uses algebraic data types, not OOP classes
+|`OBJECT` |`record` - Struct-like type with named fields
+|`ARRAY` |`List[T]` or `[T]` - AffineScript uses parameterized types
+|`MAP`/`DICTIONARY` |`Dict[K, V]` - Key-value mapping type
+|`NULL` |`()` - Unit type, not a null reference
+|`VOID` |`()` - Unit type (no value)
+|`ANY` type |Not applicable - AffineScript has no type escape hatches; all types are explicit
+|`INTEGER` |`Int` or `Int64` - Signed integer types
+|`REAL`/`FLOAT` |`Float64` - Floating-point type
+|`STRING` |`String` - UTF-8 text type
+|`BOOLEAN` |`Bool` - Boolean type
+|`IS` / `IS NOT` |`==` / `!=` - Equality comparison
+|`MOD` |`%` - Modulo operator
+|`DIV` |`/` - Division (note: integer division behaves differently)
+|`RAISE ERROR` |Not applicable - AffineScript uses `Result` types and effect system
+|`TRY` / `CATCH` |Not applicable - AffineScript uses `Result` types and effect system
+|`THROW` |Not applicable - No exceptions in AffineScript
+|`IMPORT` |`use` - Module import statement
+|`FROM X IMPORT Y` |`use X::Y` - Selective module import
+|`# comment` |`// comment` - Line comment syntax
+|`/* ... */` |Not applicable - AffineScript uses `//` for line comments only
+|===
+
+IMPORTANT: Pseudocode often omits types, but AffineScript *requires* type annotations.
+Every binding, function parameter, and return type must have an explicit type.
+
+TIP: Start with `// face: pseudocode` pragma, then gradually add type annotations.
+The face transformer will guide you toward valid AffineScript syntax.
+
+== Getting Help
+
+* Language questions: https://github.com/hyperpolymath/affinescript[affinescript repo]
+* PseudoScript-specific questions: https://github.com/hyperpolymath/pseudoscript[This repo]
+* "How do I express X in AffineScript?": Check the canonical examples in affinescript/examples/
+
+== See Also
+
+* link:README.adoc[README] - Main documentation
+* link:https://github.com/hyperpolymath/affinescript[AffineScript] - Core compiler
+* link:https://github.com/hyperpolymath/affinescript/blob/main/examples/faces/README.adoc[Faces comparison]
+
+== License
+
+This project is licensed under the Mozilla Public License, v. 2.0. See the `LICENSE` file for details.
+
+SPDX-License-Identifier: MPL-2.0

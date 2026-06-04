@@ -1,0 +1,48 @@
+# SPDX-License-Identifier: MPL-2.0
+# Pseudoscript State Checkpoint
+
+[metadata]
+project = "pseudoscript"
+version = "0.1.0"
+last-updated = "2026-06-03"
+status = "active"
+
+[project-context]
+name = "pseudoscript"
+purpose = "pseudoscript-style syntax face for AffineScript - brand surface only"
+completion-percentage = 80
+
+[position]
+phase = "alpha"
+maturity = "alpha"
+
+[route-to-mvp]
+milestones = [
+  { name = "Phase 0: Repository scaffolding", completion = 100 },
+  { name = "Phase 1: CLI shim and justfile", completion = 100 },
+  { name = "Phase 2: Examples and documentation", completion = 100 },
+  { name = "Phase 3: Face transformer in affinescript", completion = 0 },
+  { name = "Phase 4: Test suite for face transformer", completion = 0 },
+]
+
+[blockers-and-issues]
+# Face transformer implementation pending in affinescript repo
+
+[critical-next-actions]
+actions = [
+  "Implement pseudoscript_face.ml transformer in affinescript/lib/"
+  "Add pseudoscript to face registration in affinescript/lib/face.ml"
+  "Create preview-pseudoscript command in affinescript/bin/main.ml"
+  "Add pseudoscript to face pragma parser in affinescript/lib/face_pragma.ml"
+]
+
+[maintenance-status]
+last-run-utc = "never"
+last-report = "verification/latest.json"
+last-result = "unknown"
+open-warnings = 0
+open-failures = 0
+
+[ecosystem]
+part-of = ["AffineScript Faces", "RSR Framework"]
+depends-on = ["affinescript"]

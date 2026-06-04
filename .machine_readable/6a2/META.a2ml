@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: MPL-2.0
+# Pseudoscript Metadata
+
+[identity]
+name = "pseudoscript"
+full-name = "Pseudoscript"
+type = "face-repo"
+category = "syntax-surface"
+
+[ownership]
+maintainer = "hyperpolymath"
+owner = "Jonathan D.A. Jewell"
+
+[versioning]
+version = "0.1.0"
+license = "MPL-2.0"
+
+[dependencies]
+core = "affinescript"

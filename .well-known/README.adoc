@@ -1,0 +1,2 @@
+// SPDX-License-Identifier: MPL-2.0
+// Well-known files for pseudoscript (security.txt, ai.txt, etc.)

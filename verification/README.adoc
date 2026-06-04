@@ -1,0 +1,2 @@
+// SPDX-License-Identifier: MPL-2.0
+// Verification scripts and test suites for pseudoscript.

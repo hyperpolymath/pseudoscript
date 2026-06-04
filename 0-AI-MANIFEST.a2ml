@@ -1,0 +1,41 @@
+# pseudoscriptFace AI Manifest
+# Face repository for AffineScript
+
+This is the AI manifest for pseudoscriptFace, a face (syntax surface) for AffineScript.
+
+## Repository Purpose
+
+pseudoscriptFace provides a pseudoscript-style syntax surface for AffineScript.
+It is a **brand surface only** - thin distribution layer.
+
+The actual compiler, type checker, borrow checker, and codegen live in:
+https://github.com/hyperpolymath/affinescript
+
+## Face Information
+
+- Face name: pseudoscript
+- CLI shim: bin/pseudo
+- Face pragma: // face: pseudoscript
+- Transformer: affinescript/lib/pseudoscript_face.ml (to be implemented in affinescript repo)
+
+## Language Mapping
+
+This face maps pseudoscript-style syntax to canonical AffineScript.
+See EXPLAINME.adoc for detailed terminology mapping.
+
+## Status
+
+Alpha. The face transformer is implemented (or will be) in the main affinescript repository.
+This repo contains examples, documentation, and CLI shim only.
+
+## AI Assistant Guidelines
+
+When answering questions about pseudoscriptFace:
+1. Clarify if the question is about syntax (this repo) or semantics (affinescript repo)
+2. For language features: explain how they map to AffineScript
+3. For bugs: direct to affinescript repo unless it's face-specific
+4. Always reference EXPLAINME.adoc for terminology differences
+
+## License
+
+MPL-2.0. See LICENSE file.

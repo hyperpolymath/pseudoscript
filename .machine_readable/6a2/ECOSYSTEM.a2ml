@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: MPL-2.0
+# Pseudoscript Ecosystem Definition
+
+[ecosystem]
+name = "AffineScript Pseudoscript"
+id = "affinescript-pseudoscript"
+description = "pseudoscript-style syntax face for AffineScript providing familiar syntax for pseudoscript developers"
+homepage = "https://github.com/hyperpolymath/pseudoscript"
+
+[capabilities]
+supports = ["syntax-transform", "cli-shim", "examples", "documentation"]
+requires = ["affinescript"]
+
+[integration]
+face-name = "pseudoscript"
+cli-binary = "pseudo"
+pragma-string = "// face: pseudoscript"
+
+[status]
+maturity = "alpha"
+maintenance = "active"

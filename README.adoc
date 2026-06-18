@@ -1,6 +1,11 @@
-// SPDX-License-Identifier: AGPL-3.0-or-later
+// SPDX-License-Identifier: MPL-2.0
+// Copyright (c) Jonathan D.A. Jewell <j.d.a.jewell@open.ac.uk>
 // SPDX-FileCopyrightText: 2024-2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
 = PseudoScript
+image:https://img.shields.io/badge/OpenSSF-Best_Practices-green?logo=opensourcesecurity[OpenSSF Best Practices,link="https://www.bestpractices.dev/en/projects/new?repo_url=https://github.com/hyperpolymath/pseudoscript"]
+
+image:https://img.shields.io/badge/License-MPL_2.0-blue.svg[License: MPL-2.0,link="https://opensource.org/licenses/MPL-2.0"]
+
 :toc: preamble
 :icons: font
 
@@ -8,11 +13,9 @@ Pseudocode-syntax AffineScript. The pseudocode you wrote in your algorithms text
 
 == What it is
 
-PseudoScript is link:https://github.com/hyperpolymath/affinescript[AffineScript] with its `pseudo` face pre-selected. CS students who learned algorithms from CLRS, Sedgewick, or any first-year algorithms course already know the syntax: `function name(...) do … end`, `set x to expr`, `output expr`, `if condition then … else … end if`, `for x in list do … end for`, `is` / `is not`, `and` / `or` / `not`, `yes` / `no`.
+PseudoScript is link:https://github.com/hyperpolymath/affinescript[AffineScript] with its `pseudo` face pre-selected. If you learned algorithms from CLRS, Sedgewick, or any first-year course, you already know the syntax: `function name(...) do … end`, `set x to expr`, `output expr`, `if condition then … else … end if`, `for x in list do … end for`, `is` / `is not`, `and` / `or` / `not`, `yes` / `no`. The compiler checks that your resources (files, sockets, tokens, handles) are used *exactly as many times as you declare* — and proves it at compile time, while reporting errors in beginner-friendly vocabulary rather than compiler jargon.
 
-This is a *first-language* opportunity. Every CS textbook on Earth uses pseudocode for examples. There's no other language where the pseudocode you wrote in week 1 actually executes — Scratch is graphical-only, Python is closer but still has its own keywords. PseudoScript closes that gap.
-
-This repo is a **brand surface only**. The compiler lives in link:https://github.com/hyperpolymath/affinescript[affinescript]. This repo carries:
+This repo is a **brand surface only**. The compiler, type checker, borrow checker, and codegen all live in link:https://github.com/hyperpolymath/affinescript[affinescript]. This repo carries:
 
 * Examples that match common textbook pseudocode (CLRS, Sedgewick, etc.)
 * Documentation aimed at CS students and educators
@@ -28,15 +31,16 @@ This repo is a **brand surface only**. The compiler lives in link:https://github
 -- face: pseudoscript
 
 effect IO {
-  fn println(s: String) -> ()
+  fn println(s: String) -> ();
 }
 
 function main() -{IO}-> () do
-    println("Hello, PseudoScript!")
+    set greeting to "Hello, PseudoScript!"
+    output greeting
 end
 ----
 
-The face transformer accepts the pseudocode keywords your textbook taught you. Errors come back in beginner-friendly vocabulary ("`x` has not been defined. Declare it with `set x to ...` or as a function parameter.") rather than compiler-jargon.
+`function … do … end`, `set x to …`, `output x`, `is` / `is not`, `yes` / `no` — all lower to canonical AffineScript and produce the same typed-wasm output as every other face. Errors come back in the vocabulary your textbook taught you ("`x` has not been defined. Declare it with `set x to ...` or as a function parameter.") rather than compiler-jargon.
 
 == Install
 
@@ -47,6 +51,8 @@ git clone https://github.com/hyperpolymath/pseudoscript
 cd pseudoscript
 ----
 
+The `affinescript` binary does the work. The `bin/pseudo` shim in this repo just defaults the `--face` flag.
+
 == Use
 
 [source,bash]
@@ -55,8 +61,9 @@ cd pseudoscript
 affinescript eval --face pseudo examples/hello.affine
 affinescript compile --face pseudo examples/hello.affine -o hello.wasm
 
-# Or via the pseudo shim:
+# Or via the pseudo shim (same thing):
 ./bin/pseudo eval examples/hello.affine
+./bin/pseudo compile examples/hello.affine -o hello.wasm
 
 # Or via the justfile:
 just run examples/hello.affine
@@ -70,29 +77,29 @@ Source files use the canonical `.affine` extension. The face is selected by the 
 PseudoScript is one of six established faces over the AffineScript core:
 
 * AffineScript — the canonical face
-* link:https://github.com/hyperpolymath/rattlescript[RattleScript] — Python-style
+* link:https://github.com/hyperpolymath/rattlescript[RattleScript] — indentation / scripting style
 * link:https://github.com/hyperpolymath/jaffascript[JaffaScript] — JavaScript / TypeScript-style
 * link:https://github.com/hyperpolymath/lucidscript[LucidScript] — PureScript / Haskell-style
 * link:https://github.com/hyperpolymath/cafescripto[CafeScripto] — CoffeeScript-style
 * **PseudoScript** — pseudocode-style (this repo)
 
+All six share the canonical `.affine` extension and lower to the same AST. Errors are reported in face-appropriate vocabulary.
+
 == Why PseudoScript
 
-The catchment is smaller than RattleScript or JaffaScript by raw headcount, but unusually defensible. CS pedagogy is pseudocode-first by tradition; the gap between "what the textbook says" and "what compiles" has been there for fifty years. Closing it gives students a way to:
+The catchment is smaller than RattleScript or JaffaScript by raw headcount, but unusually defensible. CS pedagogy is pseudocode-first by tradition; the gap between "what the textbook says" and "what compiles" has been there for fifty years. Every CS textbook on Earth uses pseudocode for examples, yet there's no other language where the pseudocode you wrote in week 1 actually executes — Scratch is graphical-only, conventional scripting languages are closer but still impose their own keywords and ceremony. PseudoScript closes that gap, giving students a way to:
 
 1. Write the algorithm exactly as the textbook describes it.
 2. Get type errors in pedagogy-friendly language ("the if branch produces X but the else branch produces Y — both branches must produce the same type") instead of compiler jargon.
 3. Compile to typed-wasm and actually see the algorithm run.
 4. Migrate to a more conventional face (Rattle, Jaffa) once they're comfortable with programming-as-distinct-from-pseudocode.
 
-== Limitations
-
-The pseudocode face does **not** yet auto-insert statement separators between non-tail statements. Multi-statement function bodies need explicit separators (`;`) or single-statement bodies. Some token substitutions can also bleed into comment text. These are tracked in link:https://github.com/hyperpolymath/affinescript/blob/main/examples/faces/README.adoc[the affinescript faces README] and are scheduled for sweep on 2026-05-16.
-
 == Status
 
-Alpha. The face transformer is implemented in `affinescript/lib/pseudocode_face.ml`.
+Alpha. The face transformer is implemented in `affinescript/lib/pseudocode_face.ml`. Known limitations are tracked in link:https://github.com/hyperpolymath/affinescript/blob/main/examples/faces/README.adoc[the affinescript faces README] under "Known transformer gaps".
 
 == License
 
-AGPL-3.0-or-later. See `LICENSE`.
+This project is licensed under the Mozilla Public License, v. 2.0. See the `LICENSE` file for details. Documentation is licensed CC-BY-SA-4.0.
+
+SPDX-License-Identifier: MPL-2.0

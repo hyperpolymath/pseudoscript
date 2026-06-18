@@ -1,0 +1,34 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
+#
+# ECOSYSTEM.a2ml — Project ecosystem position
+# Relationships, dependencies, integration points.
+
+[metadata]
+version = "0.1.0"
+last-updated = "2026-06-18"
+
+[project]
+name = "pseudoscript"
+purpose = "Pseudocode surface face over AffineScript. A brand surface that pre-selects the `pseudo` face; the compiler, type checker, borrow checker, and codegen live in affinescript. Targets the pseudocode community — educators, students, and algorithm/spec authors who think in textbook pseudocode."
+role = "language-face"  # surface dialect / brand surface over the canonical AffineScript core
+
+[position-in-ecosystem]
+tier = "2"  # 1 | 2 | infrastructure
+
+[related-projects]
+# relationship types: sibling-standard, dependency, dependent, inspiration, potential-consumer
+related = [
+  { name = "affinescript",      relationship = "dependency",         note = "canonical core; hosts lib/pseudocode_face.ml and the whole shared compiler pipeline" },
+  { name = "rattlescript",      relationship = "sibling-standard",   note = "Python face" },
+  { name = "jaffascript",       relationship = "sibling-standard",   note = "JavaScript / TypeScript face" },
+  { name = "lucidscript",       relationship = "sibling-standard",   note = "PureScript / Haskell face" },
+  { name = "cafescripto",       relationship = "sibling-standard",   note = "CoffeeScript face" },
+  { name = "aggregate-library", relationship = "potential-consumer", note = "cross-face conformance overlap (extension layer)" },
+]
+
+[integration-points]
+# External systems this project connects to
+integrations = [
+  { system = "affinescript", direction = "outbound", protocol = "cli", note = "bin/pseudo shims `affinescript --face pseudo`" },
+]

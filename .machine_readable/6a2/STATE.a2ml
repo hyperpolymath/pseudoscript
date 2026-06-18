@@ -1,0 +1,51 @@
+# SPDX-License-Identifier: MPL-2.0
+# Copyright (c) 2026 Jonathan D.A. Jewell (hyperpolymath) <j.d.a.jewell@open.ac.uk>
+#
+# STATE.a2ml — Project state checkpoint
+
+[metadata]
+project = "pseudoscript"
+version = "0.1.0"
+last-updated = "2026-06-18"
+status = "active"  # active | paused | archived
+
+[project-context]
+name = "pseudoscript"
+purpose = "Pseudocode face (brand surface) over AffineScript. Holds textbook-pseudocode-idiomatic examples, community docs aimed at educators and students, tutorial materials, and the `pseudo` shim CLI. All compiler internals live in affinescript and are shared, unchanged, by every face."
+completion-percentage = 40
+
+[position]
+phase = "implementation"   # design | implementation | testing | maintenance | archived
+maturity = "alpha"         # experimental | alpha | beta | production | lts
+
+[route-to-mvp]
+milestones = [
+  { name = "RSR-standard repository layout at parity with rattlescript", completion = 100 },
+  { name = "Genuine pseudocode-idiomatic README + hello example", completion = 100 },
+  { name = "Machine-readable identity (6a2) populated", completion = 80 },
+  { name = "Pseudocode tutorial / intro-algorithms migration guide (docs/)", completion = 0 },
+  { name = "Idiomatic example corpus beyond hello (textbook algorithms)", completion = 0 },
+  { name = "Same-cube conformance wired to affinescript preview-pseudocode", completion = 0 },
+]
+
+[blockers-and-issues]
+# Depends on lib/pseudocode_face.ml in affinescript (ADR-010). Known transformer
+# gaps are tracked in affinescript/examples/faces/README.adoc under "Known
+# transformer gaps".
+
+[critical-next-actions]
+actions = [
+  "Author intro-algorithms tutorial / pseudocode migration guide under docs/",
+  "Grow the example corpus (textbook algorithms, effects, resource handles) in pseudo syntax",
+  "Wire same-cube verification: preview-pseudocode output diffed against canonical",
+]
+
+[maintenance-status]
+last-run-utc = "never"
+last-result = "unknown"  # unknown | pass | warn | fail
+open-warnings = 0
+open-failures = 0
+
+[ecosystem]
+part-of = ["AffineScript faces", "RSR Framework"]
+depends-on = ["affinescript"]

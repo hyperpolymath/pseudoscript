@@ -7,13 +7,13 @@
 # applied by the probot/settings app when changes are pushed to the default
 # branch. Install the app at: https://github.com/apps/settings
 #
-# Template file — replace pseudoscript and {{DESCRIPTION}} with actual values.
+# Template file — replace pseudoscript and Pseudocode-syntax AffineScript — first-language for CS pedagogy that compiles and runs with actual values.
 
 # ─── Repository Settings ───────────────────────────────────────────────────────
 
 repository:
   name: "pseudoscript"
-  description: "{{DESCRIPTION}}"
+  description: "Pseudocode-syntax AffineScript — first-language for CS pedagogy that compiles and runs"
   homepage: "https://github.com/hyperpolymath/pseudoscript"
   private: false
   has_issues: true
